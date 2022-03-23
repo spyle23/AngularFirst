@@ -10,8 +10,20 @@ export class FaceSnapComponent implements OnInit {
 
   @Input() faceSnaps!:FaceSnap;
 
-  ngOnInit(): void {
+  buttonText!:string;
 
+  ngOnInit(): void {
+    this.buttonText = "j'aime";
+  }
+  onSnap(){
+    if (this.buttonText === "j'aime") {
+      this.faceSnaps.snaps ++;
+      this.buttonText = "je n'aime plus";
+    }
+    else{
+      this.faceSnaps.snaps --;
+      this.buttonText ="j'aime";
+    }
   }
 
 }
