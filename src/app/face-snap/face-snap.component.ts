@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FaceSnap } from '../models/Face-Snap.models';
+import { FaceSnapService } from '../services/face-snaps.service';
 
 @Component({
   selector: 'app-face-snap',
@@ -8,7 +9,9 @@ import { FaceSnap } from '../models/Face-Snap.models';
 })
 export class FaceSnapComponent implements OnInit {
 
-  @Input() faceSnaps!:FaceSnap;
+  @Input() faceSnaps!:FaceSnap;     //injéction des models depuis les parents 
+
+  constructor(private faceSnapService: FaceSnapService){};    //injéction de service dans le component faceSnap component
 
   buttonText!:string;
 
@@ -17,11 +20,11 @@ export class FaceSnapComponent implements OnInit {
   }
   onSnap(){
     if (this.buttonText === "j'aime") {
-      this.faceSnaps.snaps ++;
+      this.faceSnapService.actionSnapById(this.faceSnaps.id, "j'aime");
       this.buttonText = "je n'aime plus";
     }
     else{
-      this.faceSnaps.snaps --;
+      this.faceSnapService.actionSnapById(this.faceSnaps.id, "je n'aime plus");
       this.buttonText ="j'aime";
     }
   }
